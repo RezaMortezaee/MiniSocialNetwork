@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,22 +18,26 @@ Route::group(['middleware'=>['web']],function() {
         return view('welcome');
     })->name('home');
 
-    Route::post('signup',[
+    Route::post('/signup',[
         'uses' => 'UserController@postSignUp',
         'as'=>'sign-up'
     ]);
-    Route::post('signin',[
+    Route::post('/signin',[
         'uses' => 'UserController@postSignIn',
         'as'=>'signin'
     ]);    
     Route::get('/dashboard',[
-        'uses'=>'UserController@getDashboard',
+        'uses'=>'PostController@getDashboard',
         'as'=>'dashboard',
         // 'middleware'=>'auth'
         ]);        
-    Route::post('createpost',[
+    Route::post('/createpost',[
         'uses'=>'PostController@postCreatePost',
         'as'=>'post.create'
-    ]);    
+    ]);
+    Route::get('/post-delete/{post_id}',[
+              'uses'=>'PostController@getDeletePost',
+              'as'=>'post.delete'
+    ]);  
 });
 
