@@ -20,7 +20,7 @@ Route::group(['middleware'=>['web']],function() {
 
     Route::post('/signup',[
         'uses' => 'UserController@postSignUp',
-        'as'=>'sign-up'
+        'as'=>'signup'
     ]);
     Route::post('/signin',[
         'uses' => 'UserController@postSignIn',
@@ -39,5 +39,10 @@ Route::group(['middleware'=>['web']],function() {
               'uses'=>'PostController@getDeletePost',
               'as'=>'post.delete'
     ]);  
+
+    Route::get('/logout',[
+        'uses'=>'PostController@getLogOut',
+        'as'=>'logout'
+    ]);    
 });
 

@@ -29,13 +29,15 @@
                         {{$post->body}}
                     </p>
                     <div class="info">
-                        Posted by {{ $post->user->first_name }} on {{ $post->created_at }}
+                        Posted by {{ $post->User->first_name }} on {{ $post->created_at }}
                     </div>
                     <div class="intraction">
                         <a href="#">Like</a> |
                         <a href="#">Dislike</a> |
+                        @if(Auth::User() == $post->user)
                         <a href="#">Edit</a> |
                         <a href="{{ route('post.delete',['post_id' => $post->id]) }}">Delete</a>
+                        @endif
                     </div>
                 </article>
             @endforeach
