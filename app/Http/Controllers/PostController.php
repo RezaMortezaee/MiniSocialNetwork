@@ -45,4 +45,15 @@ class PostController extends Controller
         Auth::logout();
         return redirect()->route('home');
     }
+
+    public function postEditPost(Request $request)
+    {
+        $this->validate($request,[
+            'body' => 'required'
+        ]);
+        $post = Post::find($request['postId']);
+        $post->body = $request['body'];
+        $post->update();
+        return response()->json(['new_body'=>$post->body],200);
+    }
 }

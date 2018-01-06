@@ -43,6 +43,11 @@ Route::group(['middleware'=>['web']],function() {
     Route::get('/logout',[
         'uses'=>'PostController@getLogOut',
         'as'=>'logout'
-    ]);    
+    ]);
+
+    Route::post('/edit',[
+        'uses'=>'PostController@edit',
+        'as'=>'edit'
+    ]);
 });
 

@@ -38,7 +38,8 @@ class UserController extends Controller
             'password'=>$request['password']
         ])) {
             return redirect()->route('dashboard');
+        }else {
+            return redirect()->back();
         }
-        return redirect()->back();
     }
 }
