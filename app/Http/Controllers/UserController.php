@@ -42,4 +42,9 @@ class UserController extends Controller
             return redirect()->back();
         }
     }
+
+    public function getAccount()
+    {
+        return view('account',['user'=>Auth::user()]);
+    }
 }

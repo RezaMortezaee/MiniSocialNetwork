@@ -40,9 +40,19 @@ Route::group(['middleware'=>['web']],function() {
               'as'=>'post.delete'
     ]);  
 
+    Route::post('/updateaccount',[
+        'uses'=>'UserController@postSaveAccount',
+        'as'=>'account.save'
+    ]);
+
     Route::get('/logout',[
         'uses'=>'PostController@getLogOut',
         'as'=>'logout'
+    ]);
+
+    Route::get('/account',[
+        'uses' => 'UserController@getAccount',
+        'as' => 'account'
     ]);
 
     Route::post('/edit',[
