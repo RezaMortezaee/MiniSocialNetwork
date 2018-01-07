@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 
 class PostController extends Controller
 {
@@ -35,7 +38,7 @@ class PostController extends Controller
             return redirect()->back();
         }
         /* This is also available 
-           $post = find($post_id)->first(); 
+            $post = find($post_id)->first();
         */
         $post->delete();
         return redirect()->route('dashboard')->with(['message'=>'Successfully Deleted!']);
@@ -55,5 +58,28 @@ class PostController extends Controller
         $post->body = $request['body'];
         $post->update();
         return response()->json(['new_body'=>$post->body],200);
+    }
+
+    public function postSaveAccount(Request $request)
+    {
+        $this->validate($request,[
+            'first_name'=>'required|max:100'
+        ]);
+        $user = Auth::user();
+        $user->first_name=$request['first_name'];
+        $user->update();
+        $file = $request->file('image');
+        $filename = $request['first_name'].'-'.$user->id.'.jpg';
+
+        if($file) {
+            Storage::disk('local')->put($filename,\File::get($file));
+        }
+        return redirect()->route('account');
+    }
+
+    public function getUserImage($filename)
+    {
+        $file = Storage::disk('local')->get('filename');
+        return new Response($file,200);
     }
 }
